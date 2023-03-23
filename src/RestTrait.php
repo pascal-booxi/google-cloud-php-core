@@ -99,8 +99,11 @@ trait RestTrait
                 $this->requestBuilder->build($resource, $method, $options),
                 $requestOptions
             );
-            syslog(LOG_DEBUG, "response: ". get_class($response) . " = {$response}");
-            return json_decode($response->getBody(), true);
+            syslog(LOG_DEBUG, "response: class = ". get_class($response));
+            syslog(LOG_DEBUG, "response: status = {$response->getStatusCode()}");
+            $body = $response->getBody();
+            syslog(LOG_DEBUG, "response: body = " . var_export($body, TRUE));
+            return json_decode($body, true);
         } catch (NotFoundException $e) {
             if ($whitelisted) {
                 throw $this->modifyWhitelistedError($e);

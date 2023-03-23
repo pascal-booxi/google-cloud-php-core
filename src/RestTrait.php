@@ -98,7 +98,7 @@ trait RestTrait
             $response = $this->requestWrapper->send(
                 $this->requestBuilder->build($resource, $method, $options),
                 $requestOptions
-            )
+            );
             syslog(LOG_DEBUG, "response: ". get_class($response) . " = {$response}");
             return json_decode($response->getBody(), true);
         } catch (NotFoundException $e) {

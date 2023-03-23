@@ -206,7 +206,7 @@ class RequestWrapper
                 $this->getRequestOptions($options)
             ]);
         } catch (\Exception $ex) {
-            syslog(LOG_ERR, "{$ex}");
+            syslog(LOG_ERR, "RequestWrapper::send : {$ex}");
             throw $this->convertToGoogleException($ex);
         }
     }
@@ -259,7 +259,7 @@ class RequestWrapper
                 $shouldRetry = $retryOptions['retryFunction']($ex, $retryAttempt);
 
                 if ($shouldRetry === false || $retryAttempt >= $retryOptions['retries']) {
-                    syslog(LOG_ERR, "{$ex}");
+                    syslog(LOG_ERR, "RequestWrapper::sendAsync : {$ex}");
                     throw $this->convertToGoogleException($ex);
                 }
 
@@ -335,7 +335,7 @@ class RequestWrapper
                 }
             );
         } catch (\Exception $ex) {
-            syslog(LOG_ERR, "{$ex}");
+            syslog(LOG_ERR, "RequestWrapper::fetchCredentials : {$ex}");
             throw $this->convertToGoogleException($ex);
         }
     }

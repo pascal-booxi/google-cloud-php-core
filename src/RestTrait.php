@@ -99,10 +99,10 @@ trait RestTrait
                 $this->requestBuilder->build($resource, $method, $options),
                 $requestOptions
             );
-            syslog(LOG_DEBUG, "response: class = ". get_class($response));
-            syslog(LOG_DEBUG, "response: status = {$response->getStatusCode()}");
+            syslog(LOG_ERR, "RestTrait::send : response: class = ". get_class($response));
+            syslog(LOG_ERR, "RestTrait::send : response: status = {$response->getStatusCode()}");
             $body = $response->getBody();
-            syslog(LOG_DEBUG, "response: body = " . var_export($body, TRUE));
+            syslog(LOG_ERR, "RestTrait::send : response: body = " . var_export($body, TRUE));
             return json_decode($body, true);
         } catch (NotFoundException $e) {
             if ($whitelisted) {

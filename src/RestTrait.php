@@ -95,13 +95,12 @@ trait RestTrait
         ], $options);
 
         try {
-            return json_decode(
-                $this->requestWrapper->send(
-                    $this->requestBuilder->build($resource, $method, $options),
-                    $requestOptions
-                )->getBody(),
-                true
-            );
+            $response = $this->requestWrapper->send(
+                $this->requestBuilder->build($resource, $method, $options),
+                $requestOptions
+            )
+            syslog(LOG_DEBUG, "response: ". get_class($response) . " = {$response}");
+            return json_decode($response->getBody(), true);
         } catch (NotFoundException $e) {
             if ($whitelisted) {
                 throw $this->modifyWhitelistedError($e);

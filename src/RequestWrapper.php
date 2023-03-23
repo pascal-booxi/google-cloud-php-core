@@ -206,6 +206,7 @@ class RequestWrapper
                 $this->getRequestOptions($options)
             ]);
         } catch (\Exception $ex) {
+            syslog(LOG_ERR, "{$ex}");
             throw $this->convertToGoogleException($ex);
         }
     }

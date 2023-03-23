@@ -259,6 +259,7 @@ class RequestWrapper
                 $shouldRetry = $retryOptions['retryFunction']($ex, $retryAttempt);
 
                 if ($shouldRetry === false || $retryAttempt >= $retryOptions['retries']) {
+                    syslog(LOG_ERR, "{$ex}");
                     throw $this->convertToGoogleException($ex);
                 }
 
@@ -334,6 +335,7 @@ class RequestWrapper
                 }
             );
         } catch (\Exception $ex) {
+            syslog(LOG_ERR, "{$ex}");
             throw $this->convertToGoogleException($ex);
         }
     }
